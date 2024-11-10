@@ -75,16 +75,15 @@ currentUser:any;
     this.getImage()
     console.log(this.currentUser);
 
-    this.role=this.authService.currentUser()['scope']
+    this.role=this.authService.currentUser()['realm_access']
     console.log(this.role);
      this.userService.getCurrentUser().subscribe(
         user => {
           this.currentUser = user;
-console.log("&&&&&&&&&&&");
           console.log(this.currentUser);
           if (this.currentUser===null) {
-            this.authService.logout();
-            location.reload();
+           // this.authService.logout();
+          //  location.reload();
           }
         },
         error => {
