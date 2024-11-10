@@ -6,11 +6,15 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+ 
     "Steex": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style":  "scss" ,
+          "scripts": [
+             "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
         }
       },
       "root": "",
