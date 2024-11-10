@@ -32,22 +32,24 @@ export class LoginComponent implements OnInit{
 ) { }
 
   ngOnInit(): void {
-
-    // Ensure that SocialAuthService is initialized before calling signIn method
-
+   
     let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    if(currentUser['scope'] === 'ADMIN'){
-      this.router.navigate(['/']);
-    } else if(currentUser['scope'] === 'USER'){
-      this.router.navigate(['/User']);
+    if(currentUser['realm_access']?.roles.includes('admin')){
+      this.router.navigate(['/real-estate/grid']);
+    } else if(currentUser['realm_access']?.roles.includes('user')){
+     
+      this.router.navigate(['/User/real-estate/grid']);
+    }
+    else if (currentUser['realm_access']?.roles.includes('owner')){
+      this.router.navigate(['/Owner/real-estate/list']);
     }
 
     /**
      * Form Validatyion
      */
     this.loginForm = this.formBuilder.group({
-      email: ['admin@1waydev.tn', [Validators.required, Validators.email]],
-      password: ['adminADMIN#1919', [Validators.required]],
+      email: ['wassef.talbi@esprit.tn', [Validators.required, Validators.email]],
+      password: ['wassefTALBI#7050', [Validators.required]],
     });
   }
 
@@ -59,16 +61,25 @@ export class LoginComponent implements OnInit{
    */
   onSubmit(): void {
     this.errorLogin = '';
+    console.log("test");
+    
     this.authService.login(this.f['email'].value, this.f['password'].value).subscribe(
       (response) => {
-        if (response && response.accessToken) {
-          console.log(response);
-          if(this.authService.currentUser()['scope'] === 'ADMIN'){
-            this.router.navigate(['/']);
-          } else {
-            this.router.navigate(['/User']);
+        console.log("msg",response);
+        
+        
+         
+          console.log(response.access_Token);
+          if(this.authService.currentUser()['realm_access']?.roles.includes('admin')){
+            this.router.navigate(['/real-estate/grid']);
+          } else if(this.authService.currentUser()['realm_access']?.roles.includes('user')){
+           
+            this.router.navigate(['/User/real-estate/grid']);
           }
-        }
+          else if (this.authService.currentUser()['realm_access']?.roles.includes('owner')){
+            this.router.navigate(['/Owner/real-estate/list']);
+          }
+    
       },
       (error) => {
         if (error.error === 'Invalid username or password') {
