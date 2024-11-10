@@ -8,6 +8,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import {AdminGuard} from "./core/guards/admin.guard";
 import {userGuard} from "./core/guards/user.guard";
 import {LayoutComponentUser} from "./layout-user/layout.component";
+import { ownerGuard } from './core/guards/owner.guard';
 
 
 const routes: Routes = [
