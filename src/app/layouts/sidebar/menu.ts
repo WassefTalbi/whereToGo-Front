@@ -15,7 +15,7 @@ export const MENU: MenuItem[] = [
       {
         id: 3,
         label: 'MENUITEMS.DASHBOARD.LIST.ANALYTICS',
-        link: '/analytics',
+        link: '/Evenement/test',
         parentId: 2
       },
       {

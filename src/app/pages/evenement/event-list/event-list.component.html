@@ -1,0 +1,43 @@
+<div class="card bg-transparent border rounded-3">
+    <!-- Card header START -->
+    <div class="card-header bg-transparent border-bottom">
+        <h3 class="creative-title">Liste des Événements</h3>
+        <div class="col-md-3">
+            <button type="button" (click)="addEvent()" class="btn creative-btn new-event-btn">🎉 Nouvel Événement</button>
+        </div>
+    </div>
+    <!-- Card header END -->
+
+    <!-- Card body START -->
+    <ul>
+        <li *ngFor="let event of paginatedEvents">{{ event }}</li>
+    </ul>
+
+    <div class="pagination-controls">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Précédent</button>
+        <span>Page {{ currentPage }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= events.length">Suivant</button>
+    </div>
+
+    <svg height="100%" width="100%" class="spellbound">
+        <linearGradient id="grad" gradientTransform="rotate(90)">
+            <stop offset="0%" stop-color="#3b66d9"></stop>
+            <stop offset="100%" stop-color="#5782f5"></stop>
+        </linearGradient>
+        <filter id="blur" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation=".1" />
+        </filter>
+        <pattern id="grid" width="250" height="207" patternUnits="userSpaceOnUse" patternTransform="scale(2) skewX(4.1) skewY(-4)">
+            <g fill="#1f4abd" filter="url(#blur)">
+                <!-- Animated circles -->
+                <circle cx="0" fill="#abd6b5">
+                    <animate attributeName="cy" values="4; 203; 4" dur="23500ms" begin="-0ms" repeatCount="indefinite"></animate>
+                    <animate attributeName="cx" values="4; 246; 4" dur="23500ms" begin="-0ms" repeatCount="indefinite"></animate>
+                    <animate attributeName="r" values="3; 5; 3" dur="11750ms" begin="-0ms" repeatCount="indefinite"></animate>
+                </circle>
+                <!-- Ajoutez d'autres cercles ici en suivant la même structure -->
+            </g>
+        </pattern>
+    </svg>
+    <!-- Card body END -->
+</div>

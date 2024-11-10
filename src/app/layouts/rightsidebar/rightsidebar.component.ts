@@ -116,7 +116,6 @@ export class RightsidebarComponent {
     this.unsubscribe$.complete();
     this.layout = layout;
     this.store.dispatch(changelayoutTheme({ layout }));
-    this.eventService.broadcast('changeLayout', layout);
     this.store.select(getLayout).pipe(takeUntil(this.unsubscribe$),take(1)).subscribe((layout) => {
       document.documentElement.setAttribute('data-layout', layout);
       setTimeout(() => {
