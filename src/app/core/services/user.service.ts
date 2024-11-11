@@ -23,7 +23,7 @@ export class UserProfileService {
 
     /***
      * Facked User Register
-     */
+    */
     register(user: User) {
         return this.http.post(`/users/register`, user);
     }
@@ -31,12 +31,12 @@ export class UserProfileService {
     return this.http.get<User>(API_URL+USER+`email/${email}`);
   }
   getCurrentUser() {
-    const email = this.authService.currentUser()['sub'];
+    const email = this.authService.currentUser()['email'];
     console.log(email + "email");
     return this.getUserByEmail(email).pipe(
       catchError((error) => {
         console.error('An error occurred:', error);
-        return of(null); // Return a default value (null) if an error occurs
+        return of(null); 
       })
     );
   }
