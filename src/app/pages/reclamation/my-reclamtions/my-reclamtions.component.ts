@@ -61,7 +61,7 @@ export class MyReclamtionsComponent {
 
   loadReclamations(): void {
     this.isLoading = true;
-    this.reclamationService.MyReclamation().subscribe((data) => {
+    this.reclamationService.myReclamation().subscribe((data) => {
       this.MyReclamationslist = data;
       this.Reclamation = this.MyReclamationslist.slice(0, 10);
       this.isLoading = false;

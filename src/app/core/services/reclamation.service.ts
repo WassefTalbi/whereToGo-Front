@@ -19,16 +19,16 @@ export class ReclamationService {
     return this.http.post(`${API_URL+RECLAMATION}create`,ForumRequet )
   }
   updateReclamation(ForumRequet: any) {
-    return this.http.post(`${API_URL+RECLAMATION}update/{idReclamation}`,ForumRequet )
+    return this.http.post(`${API_URL+RECLAMATION}update/idReclamation`,ForumRequet )
   }
   deleteReclamation(ID: any): Observable<any>  {
     
-    return this.http.delete(`${API_URL+RECLAMATION}{Id}`, )
+    return this.http.delete(`${API_URL+RECLAMATION}Id`, )
   }
  
-  MyReclamation():Observable<any>  {
+  myReclamation():Observable<any>  {
 
-    return this.http.get<any>(`${API_URL+RECLAMATION}{idUser}`);
+    return this.http.get<any>(`${API_URL+RECLAMATION}myreclamation`);
 
   }
 }

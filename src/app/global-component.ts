@@ -9,7 +9,9 @@ export const GlobalComponent = {
   models: 'modelSTT/',
 
   user: 'user/',
-RECLAMATION: 'reclamation',
+RECLAMATION: 'reclamation/',
+POST:  'posts/',
+COMMENT:'comments/'
 
 
 
