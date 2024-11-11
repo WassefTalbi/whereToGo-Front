@@ -1,0 +1,113 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Agent List" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="agentList">
+            <div class="card-header">
+                <div class="row align-items-center gy-3">
+                    <div class="col-lg-3 col-md-6 order-last order-md-first me-auto">
+                        <div class="search-box">
+                            <input type="text" class="form-control search" placeholder="Search for agent, email, address or something..." [(ngModel)]="term" (keyup)="filterdata()">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
+                        <thead class="text-muted table-light">
+                            <tr>
+                               <th scope="col" class="sort cursor-pointer" (click)="onSort('firstName')">First Name</th>
+                               <th scope="col" class="sort cursor-pointer" (click)="onSort('lastName')">Last Name</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('email')">Email</th>
+                                <th scope="col" class="sort cursor-pointer" (click)="onSort('phone')">Contacts</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list form-check-all">
+                            @for (data of agents; track $index) {
+                            <tr id="{{data.id}}">
+                              
+                                <td class="agent_Name">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="http://localhost:1919/user/image/{{data.photoProfile}}" alt="" class="avatar-xs rounded">
+                                        <a routerLink="/real-estate/agent/overview" class="text-reset text-capitalize">{{data.firstName}}</a>
+                                    </div>
+                                </td>
+                                <td class="lastName">{{data.lastName}}</td>
+                                <td class="email">{{data.email}}</td>
+                                <td class="contact">{{data.phone}}</td>
+                                
+                                <td>
+                                    <ul class="d-flex gap-2 list-unstyled mb-0">
+                                        <li>
+                                            <a href="javascript:void(0);" (click)="removeItem(data.id)" class="btn btn-subtle-danger btn-icon btn-sm remove-item-btn"><i class="ph-trash"></i></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                        </tbody><!-- end tbody -->
+                    </table><!-- end table -->
+
+                    <div id="elmLoader">
+                        <div class="spinner-border text-primary avatar-sm" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="noresult" style="display: none;">
+                        <div class="text-center py-4">
+                            <i class="ph-magnifying-glass fs-1 text-primary"></i>
+                            <h5 class="mt-2">Sorry! No Result Found</h5>
+                            <p class="text-muted mb-0">We've searched more than 150+ agent We did not find any agent for
+                                you search.</p>
+                        </div>
+                    </div>
+                </div>
+                <div [ngClass]="(agents?.length == 0)?'d-none':''" class="row mt-3 align-items-center" id="pagination-element">
+                    <div class="col-sm">
+                        <div class="text-muted text-center text-sm-start">
+                            Showing <span class="fw-semibold">{{this.agents?.length}}</span> of <span class="fw-semibold">{{this.agentlist?.length}}</span> Results
+                        </div>
+                    </div><!--end col-->
+                    <div class="col-sm-auto mt-3 mt-sm-0">
+                        <pagination class="pagination-wrap justify-content-center hstack gap-2" [totalItems]="this.agentlist?.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- deleteRecordModal -->
+<div bsModal #deleteRecordModal="bs-modal" id="deleteRecordModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" id="deleteRecord-close" (click)="deleteRecordModal.hide()"></button>
+            </div>
+            <div class="modal-body p-md-5">
+                <div class="text-center">
+                    <div class="text-danger">
+                        <i class="bi bi-trash display-5"></i>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="mb-2">Are you sure ?</h4>
+                        <p class="text-muted fs-md mx-3 mb-0">Are you sure you want to remove this record ?</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 pt-2 mb-2">
+                    <button type="button" class="btn w-sm btn-light btn-hover" (click)="deleteRecordModal.hide()">Close</button>
+                    <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record" (click)="confirmDelete()">Yes, Delete It!</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /deleteRecordModal -->
