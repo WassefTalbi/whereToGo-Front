@@ -11,10 +11,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style":  "scss" ,
-          "scripts": [
-             "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+          "style":  "scss" 
+          
         }
       },
       "root": "",

@@ -11,22 +11,24 @@ export class ReclamationService {
 
   constructor(private http: HttpClient) { }
   getReclamations(): Observable<any> {
-    return this.http.get<any>(`${API_URL+RECLAMATION}`);
+    console.log( localStorage.getItem("token"));
+    
+    return this.http.get<any>(`${API_URL+RECLAMATION}/all`);
   }
   addReclamation(ForumRequet: any) {
     return this.http.post(`${API_URL+RECLAMATION}create`,ForumRequet )
   }
   updateReclamation(ForumRequet: any) {
-    return this.http.post(`${API_URL+RECLAMATION}update/{idReclamation}`,ForumRequet )
+    return this.http.post(`${API_URL+RECLAMATION}update/idReclamation`,ForumRequet )
   }
   deleteReclamation(ID: any): Observable<any>  {
     
-    return this.http.delete(`${API_URL+RECLAMATION}{Id}`, )
+    return this.http.delete(`${API_URL+RECLAMATION}Id`, )
   }
  
-  MyReclamation():Observable<any>  {
+  myReclamation():Observable<any>  {
 
-    return this.http.get<any>(`${API_URL+RECLAMATION}{idUser}`);
+    return this.http.get<any>(`${API_URL+RECLAMATION}myreclamation`);
 
   }
 }

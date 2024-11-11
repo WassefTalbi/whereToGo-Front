@@ -10,6 +10,8 @@ export const GlobalComponent = {
 
   user: 'user/',
 RECLAMATION: 'reclamation/',
+POST:  'posts/',
+COMMENT:'comments/'
 
 
 

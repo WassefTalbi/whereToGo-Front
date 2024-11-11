@@ -48,8 +48,8 @@ export class LoginComponent implements OnInit{
      * Form Validatyion
      */
     this.loginForm = this.formBuilder.group({
-      email: ['wassef.talbi@esprit.tn', [Validators.required, Validators.email]],
-      password: ['wassefTALBI#7050', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
   }
 
