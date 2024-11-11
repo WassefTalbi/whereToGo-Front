@@ -11,7 +11,9 @@ export class ReclamationService {
 
   constructor(private http: HttpClient) { }
   getReclamations(): Observable<any> {
-    return this.http.get<any>(`${API_URL+RECLAMATION}`);
+    console.log( localStorage.getItem("token"));
+    
+    return this.http.get<any>(`${API_URL+RECLAMATION}/all`);
   }
   addReclamation(ForumRequet: any) {
     return this.http.post(`${API_URL+RECLAMATION}create`,ForumRequet )
