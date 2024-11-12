@@ -71,20 +71,23 @@ currentUser:any;
 
   ngOnInit(): void {
     this.element = document.documentElement;
-   // this.userData = this.userService.getCurrentUser();
     this.getImage()
     console.log(this.currentUser);
-
-    this.role=this.authService.currentUser()['scope']
+    if(this.authService.isAdmin()){
+      this.role="ADMIN"
+    }else if(this.authService.isUser()){
+      this.role="USER"
+    }else{
+      this.role="OWNER"
+    }
     console.log(this.role);
      this.userService.getCurrentUser().subscribe(
         user => {
           this.currentUser = user;
-console.log("&&&&&&&&&&&");
           console.log(this.currentUser);
           if (this.currentUser===null) {
             this.authService.logout();
-            location.reload();
+           location.reload();
           }
         },
         error => {
@@ -131,10 +134,10 @@ console.log("&&&&&&&&&&&");
       user => {
         this.currentUser = user;
         console.log("&&&&&&&&&&&");
-        console.log(this.currentUser.photoProfile);
+        console.log(this.currentUser.photoprofile);
 
         // Call getImage inside the subscribe block of getCurrentUser
-        this.userService.getImage(this.currentUser.photoProfile).subscribe(data => {
+        this.userService.getImage(this.currentUser.photoprofile).subscribe(data => {
           this.createImageFromBlob(data);
         }, error => {
           console.log(error);

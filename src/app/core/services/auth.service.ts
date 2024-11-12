@@ -86,8 +86,9 @@ export class AuthenticationService {
             })
         );
     }
-  registerUser(firstName: string, lastName: string, email: string, password: string, mobileNumber: string) {
-    return this.http.post<any>(AUTH_API + 'register', { firstName, lastName, email, password, mobileNumber });
+ 
+  registerUser(client:any) {
+    return this.http.post<any>(AUTH_API + 'signup',client );
   }
 
 
@@ -113,12 +114,12 @@ export class AuthenticationService {
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(AUTH_API+`login`, { username, password }).pipe(
       tap(response => {
-        if (response && response.accessToken) {
-          this.token = response.accessToken;
+        if (response && response.access_token) {
+          this.token = response.access_token;
           localStorage.setItem('token', this.token ?? ''); // Store token in local storage
           localStorage.setItem('currentUser',JSON.stringify(this.currentUser()));
          // this.currentUserSubject.next(response.user);
-          console.log(this.currentUser()['scope'])
+          console.log(this.currentUser()['realm_access'])
          // localStorage.setItem('currentUser', JSON.stringify(response.user)); // Store user in local storage
 
         }
@@ -126,22 +127,7 @@ export class AuthenticationService {
     );
   }
 
- /* login(email: string, password: string) {
-    return this.http.post(GlobalComponent.AUTH_API + 'login', { email, password }, httpOptions).pipe(
-      map((response: any) => {
-        const token = response.token.acces; // Assuming your token is returned as 'token' property in the response
-        localStorage.setItem('token', token); // Save token to local storage
-        const user = response.user; // Assuming your user information is returned as 'user' property in the response
-        localStorage.setItem('currentUser', JSON.stringify(user)); // Save user to local storage
-        this.currentUserSubject.next(user); // Emit the current user
-        return response;
-      }),
-      catchError((error: any) => {
-        const errorMessage = 'Login failed'; // Customize the error message as needed
-        return throwError(errorMessage);
-      })
-    );
-  }*/
+
 
   logout(): Observable<void> {
         this.store.dispatch(logout());
@@ -174,14 +160,21 @@ export class AuthenticationService {
       }
       return null; // Return null if token is not found
     }
-  isAdmin(): boolean {
-    const currentUser = this.currentUser();
-    return currentUser && currentUser['scope'] === 'ADMIN';
-  }
-  isUser(): boolean {
-    const currentUser = this.currentUser();
-    return currentUser && currentUser['scope'] === 'USER';
-  }
+    isAdmin(): boolean {
+      const currentUser = this.currentUser();
+      return currentUser && currentUser['realm_access']?.roles.includes('admin');
+    }
+    
+    isUser(): boolean {
+      const currentUser = this.currentUser();
+      return currentUser && currentUser['realm_access']?.roles.includes('user');
+    }
+    
+    isOwner(): boolean {
+      const currentUser = this.currentUser();
+      return currentUser && currentUser['realm_access']?.roles.includes('owner');
+    }
+    
   /* public currentUser(): any {
        return getFirebaseBackend()!.getAuthenticatedUser();
    }*/
