@@ -12,20 +12,20 @@ export class OwnerService {
 
   constructor(private http: HttpClient) {}
 
-  saveRestaurant(agency: FormData): Observable<any> {
-    return this.http.post(`${API_URL+USER}register-agency`, agency);
+  saveRestaurant(owner: FormData): Observable<any> {
+    return this.http.post(`${API_URL+USER}register-owner`, owner);
   }
 
   getAllRestaurant(): Observable<any> {
-    return this.http.get(`${API_URL+USER}all-agency`);
+    return this.http.get(`${API_URL+USER}all-owner`);
   }
 
   getRestaurantById(id: number): Observable<any> {
     return this.http.get(`${API_URL+USER}findById/${id}`);
   }
 
-  updateRestaurant(id: number, agency: FormData): Observable<any> {
-    return this.http.put(`${API_URL+USER}manage-agence/${id}`, agency);
+  updateRestaurant(id: number, owner: FormData): Observable<any> {
+    return this.http.put(`${API_URL+USER}manage-owner/${id}`, owner);
   }
 
   deleteRestaurant(id: number): Observable<any> {

@@ -63,7 +63,7 @@ export class UserProfileService {
     const formData: FormData = new FormData();
 
     formData.append('file', file);
-    formData.append('email', this.authService.currentUser()['sub']);
+    formData.append('email', this.authService.currentUser()['email']);
 
     const req = new HttpRequest('POST', API_URL+USER+`upload-profile-picture`, formData, {
       reportProgress: true,

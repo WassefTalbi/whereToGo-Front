@@ -73,15 +73,21 @@ currentUser:any;
    // this.userData = this.userService.getCurrentUser();
     console.log(this.currentUser);
     this.getImage()
-    this.role=this.authService.currentUser()['scope']
+    if(this.authService.isAdmin()){
+      this.role="ADMIN"
+    }else if(this.authService.isUser()){
+      this.role="USER"
+    }else{
+      this.role="OWNER"
+    }
     console.log(this.role);
      this.userService.getCurrentUser().subscribe(
         user => {
           this.currentUser = user;
           console.log(this.currentUser);
           if (this.currentUser===null) {
-           // this.authService.logout();
-           // location.reload();
+            this.authService.logout();
+            location.reload();
           }
         },
         error => {
@@ -128,10 +134,10 @@ currentUser:any;
       user => {
         this.currentUser = user;
         console.log("&&&&&&&&&&&");
-        console.log(this.currentUser.photoProfile);
+        console.log(this.currentUser.photoprofile);
 
         // Call getImage inside the subscribe block of getCurrentUser
-        this.userService.getImage(this.currentUser.photoProfile).subscribe(data => {
+        this.userService.getImage(this.currentUser.photoprofile).subscribe(data => {
           this.createImageFromBlob(data);
         }, error => {
           console.log(error);
