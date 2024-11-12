@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-sm-auto ms-auto">
                                 <div class="d-flex gap-2">
-                                    <button class="btn btn-secondary order-1 order-sm-2" (click)="addAgencyModal.show()"><i class="bi bi-plus-circle align-baseline me-1"></i> Add Agency</button>
+                                    <button class="btn btn-secondary order-1 order-sm-2" (click)="addAgencyModal.show()"><i class="bi bi-plus-circle align-baseline me-1"></i> Add Owner</button>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                 <td class="since">{{data.sinceYear}}</td>
                                 <td class="agencies_Name">
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="http://localhost:1919/user/image/{{data.photoProfile}}" alt="" class="avatar-xxs rounded">
+                                        <img src="http://localhost:9056/user/image/{{data.photoprofile}}" alt="" class="avatar-xxs rounded">
                                         <a routerLink="/real-estate/agencies/overview" class="text-reset text-capitalize">{{data.name}}</a>
                                     </div>
                                 </td>
@@ -73,7 +73,7 @@
                                             <a [routerLink]="role === 'ADMIN' ? ['/real-estate/agencies/overview', data.id] : ['/User/real-estate/agencies/overview', data.id]"  class="btn btn-subtle-primary btn-icon btn-sm "><i class="ph-eye"></i></a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" (click)="editAgency(data.id)" class="btn btn-subtle-secondary btn-icon btn-sm edit-item-btn"><i class="ph-pencil"></i></a>
+                                            <a href="javascript:void(0);" (click)="editAgency(data.keycloakId)" class="btn btn-subtle-secondary btn-icon btn-sm edit-item-btn"><i class="ph-pencil"></i></a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);" (click)="removeItem(data.id)" class="btn btn-subtle-danger btn-icon btn-sm remove-item-btn"><i class="ph-trash"></i></a>
