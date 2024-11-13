@@ -4,13 +4,14 @@ import { TransportComponent } from './transport.component';
 import { TransportAddComponent } from './transport-add/transport-add.component';
 
 const routes: Routes = [
-  {path: '', component: TransportComponent},
-  {path: 'add', component: TransportAddComponent}
+  { path: '', component: TransportComponent },
+  { path: 'add', component: TransportAddComponent },
+  { path: 'update', component: TransportAddComponent },
 ];
 
 @NgModule({
   declarations: [],
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class TransportRoutingModule { }
+export class TransportRoutingModule {}

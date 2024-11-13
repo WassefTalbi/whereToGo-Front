@@ -1,1 +1,79 @@
-<p>transport-add works!</p>
+<form [formGroup]="transportForm" (ngSubmit)="onSubmit()" class="mx-3">
+  <div class="mb-3">
+    <label for="vehicleNumber" class="form-label">Vehicle Number</label>
+    <input
+      type="text"
+      id="vehicleNumber"
+      formControlName="vehicleNumber"
+      class="form-control"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="driverName" class="form-label">Driver Name</label>
+    <input
+      type="text"
+      id="driverName"
+      formControlName="driverName"
+      class="form-control"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Type</label>
+    <div class="d-flex">
+      <div class="form-check me-3">
+        <input
+          class="form-check-input"
+          type="radio"
+          id="type1"
+          formControlName="type"
+          value="BUS"
+        />
+        <label class="form-check-label" for="type1">Bus</label>
+      </div>
+      <div class="form-check me-3">
+        <input
+          class="form-check-input"
+          type="radio"
+          id="type2"
+          formControlName="type"
+          value="CAR"
+        />
+        <label class="form-check-label" for="type2">Car</label>
+      </div>
+      <div class="form-check me-3">
+        <input
+          class="form-check-input"
+          type="radio"
+          id="type3"
+          formControlName="type"
+          value="TAXI"
+        />
+        <label class="form-check-label" for="type3">Taxi</label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          id="type4"
+          formControlName="type"
+          value="TRUCK"
+        />
+        <label class="form-check-label" for="type4">Truck</label>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="capacity" class="form-label">Capacity</label>
+    <input
+      type="text"
+      id="capacity"
+      formControlName="capacity"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Add Transport</button>
+</form>

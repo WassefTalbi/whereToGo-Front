@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpClient,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // auth
 import { AngularFireModule } from '@angular/fire/compat';
@@ -49,10 +53,10 @@ import { InstructorEffects } from './store/Learning-instructor/instructor.effect
 import { CustomerEffects } from './store/Customer/customer.effects';
 import { studentsEffects } from './store/students/student.effcts';
 import { CourcesEffects } from './store/Learning-cources/cources.effect';
-import {AdminGuard} from "./core/guards/admin.guard";
-import {userGuard} from "./core/guards/user.guard";
-import {LayoutUserModule} from "./layout-user/layout-user.module";
-import {authInterceptorProviders} from "./core/helpers/auth.interceptor";
+import { AdminGuard } from './core/guards/admin.guard';
+import { userGuard } from './core/guards/user.guard';
+import { LayoutUserModule } from './layout-user/layout-user.module';
+import { authInterceptorProviders } from './core/helpers/auth.interceptor';
 
 //import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 
@@ -79,18 +83,15 @@ if (environment.defaultauth === 'firebase') {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AuthlayoutComponent
-  ],
+  declarations: [AppComponent, AuthlayoutComponent],
   imports: [
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
     }),
     StoreModule.forRoot(rootReducer),
     StoreDevtoolsModule.instrument({
@@ -118,7 +119,7 @@ if (environment.defaultauth === 'firebase') {
       CustomerEffects,
       studentsEffects,
       CourcesEffects,
-      InstructorEffects
+      InstructorEffects,
     ]),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     HttpClientModule,
@@ -130,18 +131,25 @@ if (environment.defaultauth === 'firebase') {
     ToastrModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    AngularFireAuthModule
+    CommonModule,
+    AngularFireAuthModule,
   ],
   providers: [
-    AdminGuard,userGuard,authInterceptorProviders,
-/*    {
+    AdminGuard,
+    userGuard,
+    authInterceptorProviders,
+    /*    {
       provide: 'SocialAuthServiceConfig',
       useFactory: provideConfig
     },*/
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: fakebackendInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: fakebackendInterceptor,
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

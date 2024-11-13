@@ -1,16 +1,161 @@
-<table border="2">
-  <td>
-    <tr>
-      event
-    </tr>
-    <tr>
-      event
-    </tr>
-    <tr>
-      event
-    </tr>
-    <tr>
-      event
-    </tr>
-  </td>
-</table>
+<div class="table-responsive">
+  <table
+    class="table table-borderless table-centered align-middle table-nowrap mb-0"
+  >
+    <thead class="text-muted table-light">
+      <tr>
+        <th>
+          <div class="form-check checkbox-product-list">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="1"
+              id="checkbox-1"
+            />
+            <label class="form-check-label" for="checkbox-1"></label>
+          </div>
+        </th>
+        <th
+          scope="col"
+          class="sort cursor-pointer"
+          filesortable="vehicleNumber"
+        >
+          Vehicle Number
+        </th>
+        <th scope="col" class="sort cursor-pointer" filesortable="driverName">
+          Driver Name
+        </th>
+        <th scope="col" class="sort cursor-pointer" filesortable="type">
+          Type
+        </th>
+        <th scope="col" class="sort cursor-pointer" filesortable="capacity">
+          Capacity
+        </th>
+        <th scope="col" class="sort cursor-pointer" filesortable="userId">
+          User ID
+        </th>
+        <th
+          scope="col"
+          class="sort cursor-pointer"
+          filesortable="reclamationId"
+        >
+          Reclamation ID
+        </th>
+        <th scope="col" class="sort cursor-pointer" filesortable="evenementId">
+          Evenement ID
+        </th>
+        <th scope="col" class="sort cursor-pointer" filesortable="createdDate">
+          Created Date
+        </th>
+        <th
+          scope="col"
+          class="sort cursor-pointer"
+          filesortable="lastModifiedDate"
+        >
+          Last Modified Date
+        </th>
+        <th scope="col" class="sort cursor-pointer" filesortable="version">
+          Version
+        </th>
+        <th scope="col" class="sort cursor-pointer" filesortable="deleted">
+          Deleted
+        </th>
+        <th scope="col" class="sort cursor-pointer">Action</th>
+      </tr>
+    </thead>
+    <tbody class="list" id="file-list">
+      <tr *ngFor="let transport of paginatedTransports">
+        <th>
+          <div class="form-check checkbox-product-list">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="2"
+              id="checkbox-2"
+            />
+            <label class="form-check-label" for="checkbox-2"></label>
+          </div>
+        </th>
+        <td>{{ transport.vehicleNumber }}</td>
+        <td>{{ transport.driverName }}</td>
+        <td>{{ transport.type }}</td>
+        <td>{{ transport.capacity }}</td>
+        <td *ngIf="transport.userId">{{ transport.userId }}</td>
+        <td *ngIf="transport.reclamationId">{{ transport.reclamationId }}</td>
+        <td *ngIf="transport.evenementId">{{ transport.evenementId }}</td>
+        <td>{{ transport.createdDate }}</td>
+        <td>{{ transport.lastModifiedDate }}</td>
+        <td>{{ transport.version }}</td>
+        <td>{{ transport.deleted }}</td>
+        <td>
+          <div dropdown class="dropdown">
+            <button
+              dropdownToggle
+              class="btn btn-subtle-secondary btn-sm dropdown"
+              type="button"
+            >
+              <i class="ri-more-fill align-middle"></i>
+            </button>
+            <ul *bsDropdownMenu class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a
+                  class="dropdown-item view-item-btn"
+                  href="javascript:void(0);"
+                  (click)="openDetail(transport)"
+                >
+                  <i class="ri-eye-fill align-bottom me-2 text-muted"></i> View
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item edit-item-btn"
+                  href="javascript:void(0);"
+                  (click)="editTransport(transport)"
+                >
+                  <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                  Edit
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item remove-item-btn"
+                  href="javascript:void(0);"
+                  (click)="deleteTransport(transport.id)"
+                >
+                  <i
+                    class="ri-delete-bin-fill align-bottom me-2 text-muted"
+                  ></i>
+                  Delete
+                </a>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="noresult" *ngIf="transports.length === 0">
+    <div class="text-center">
+      <h5 class="mt-2">Sorry! No Result Found</h5>
+      <p class="text-muted mb-0">
+        We've searched more than 150+ transactions. We did not find any
+        transactions for your search.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="row align-items-center text-center text-sm-start mt-3">
+  <div class="col-sm">
+    <div class="text-muted">
+      Showing
+      <span class="fw-semibold">{{ paginatedTransports.length }}</span> of
+      <span class="fw-semibold">{{ transports.length }}</span> Results
+    </div>
+  </div>
+  <div class="col-sm text-start">
+    <button type="button" class="btn btn-primary" (click)="navigateToAdd()">
+      Add New Transport
+    </button>
+  </div>
+</div>
