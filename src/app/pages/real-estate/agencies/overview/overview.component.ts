@@ -7,6 +7,9 @@ import { selectData } from 'src/app/store/App-realestate/apprealestate-selector'
 import { selectagentData } from 'src/app/store/Agent/agent-selector';
 import { Store } from '@ngrx/store';
 import { fetchagentData } from 'src/app/store/Agent/agent.action';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AgencyService } from 'src/app/core/services/agency.service';
 
 @Component({
   selector: 'app-overview',
@@ -29,11 +32,21 @@ export class OverviewComponent {
   deleteID: any;
   currentTab: any = 'property';
   agentlist: any;
-
-  constructor(public store: Store) {
-  }
-
+  agency:any
+  properties:any
+  currentAgencyId:any
+  nbrProperties:any
+  constructor(
+    public store: Store,
+    private route: ActivatedRoute,
+    private toastr: ToastrService ,
+    private agencyService:AgencyService
+  ) { }
+  
+ 
   ngOnInit(): void {
+    this.getCurrentAgencyId();
+    this.loadAgency();
     /**
      * BreadCrumb
      */
@@ -57,7 +70,20 @@ export class OverviewComponent {
       this.agents = this.agentlist.slice(0, 8)
     });
   }
-
+  getCurrentAgencyId() {
+    this.route.paramMap.subscribe(params => {
+      this.currentAgencyId = params.get('id');
+      console.log("current property",this.currentAgencyId);
+    });
+  }
+  loadAgency() {
+    this.agencyService.getAgencyById(this.currentAgencyId).subscribe((data) => {
+      this.agency = data;
+      this.properties=data.properties
+      this.nbrProperties=this.properties.length
+      console.log('display data of agency', data);
+    });
+  }
   // Agent Pagination
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;

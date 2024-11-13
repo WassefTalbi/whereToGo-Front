@@ -10,16 +10,14 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { RealestateService } from 'src/app/core/services/realestate.service';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
-
 @Component({
-  selector: 'app-grid',
-  templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss'],
+  selector: 'app-owner',
+  templateUrl: './owner.component.html',
+  styleUrl: './owner.component.scss',
   providers: [DecimalPipe]
-})
 
-// Grid Component
-export class GridComponent {
+})
+export class OwnerComponent {
   role:any;
   files: File[] = [];
   page: number = 1;
@@ -64,8 +62,8 @@ export class GridComponent {
     console.log('role in the properties grid ',this.role);
     // Breadcrumb
     this.breadCrumbItems = [
-      { label: 'Real Estate', active: true },
-      { label: 'Listing Grid', active: true }
+      { label: 'Agency', active: true },
+      { label: 'Property', active: true }
     ];
     
     setTimeout(() => {
@@ -147,10 +145,10 @@ export class GridComponent {
   }
 
   loadProperties() {
-    this.propertyService.getAllProperties().subscribe((data) => {
-      this.properties = data;
+    this.propertyService.getAllPropertiesByAgency().subscribe((data) => {
+      this.properties = data.properties;
       console.log(data)
-      this.propertiesList = data;
+      this.propertiesList = data.properties;
       this.properties = this.propertiesList.slice(0, 8);
     });
     document.getElementById('elmLoader')?.classList.add('d-none');
@@ -213,7 +211,7 @@ export class GridComponent {
       this.features.forEach(feature => {
         feature.selected = featureNames.includes(feature.id);
       });
-      this.logoUrl = `http://localhost:9056/user/image/${property.image}`;
+      this.logoUrl = `http://localhost:1919/user/image/${property.image}`;
       this.editPropertyModal?.show();
     });
   }

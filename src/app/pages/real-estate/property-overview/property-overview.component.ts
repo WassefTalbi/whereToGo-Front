@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 // import { SwiperOptions } from 'swiper';
 
 import * as L from 'leaflet';
+import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
+import { RealestateService } from 'src/app/core/services/realestate.service';
+import { UserProfileService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-property-overview',
@@ -11,11 +16,44 @@ import * as L from 'leaflet';
 
 // Property Overview Component
 export class PropertyOverviewComponent {
+  currentPropertyId:any
+ property:any;
+ agencyOwner:any;
+ role:any
+ currentUserId:any
+ rating: number = 0;
 
+  constructor(
+    private route: ActivatedRoute,
+    private toastr: ToastrService ,
+    private realeStateService:RealestateService,
+    private authService: AuthenticationService,
+    private userService: UserProfileService  ) { }
+ 
   // bread crumb items
   breadCrumbItems!: Array<{}>;
 
   ngOnInit(): void {
+    this.role=this.authService.currentUser()['scope']
+    const user = this.authService.currentUser();
+    this.userService.getCurrentUser().subscribe(
+      user => {
+        if (user) { 
+          this.currentUserId = user.id;
+          console.log("User:", user);
+        } else {
+          console.warn("No user data received.");
+        }
+      
+      },
+      error => {
+        console.error('Error:', error);
+      }
+    );
+
+
+    this.getCurrentPropertyId()
+    this.loadProperty()
     /**
      * BreadCrumb
      */
@@ -24,6 +62,29 @@ export class PropertyOverviewComponent {
       { label: 'Property Overview', active: true }
     ];
   }
+
+  getCurrentPropertyId() {
+    this.route.paramMap.subscribe(params => {
+      this.currentPropertyId = params.get('id');
+      console.log("current property",this.currentPropertyId);
+    });
+  }
+  loadProperty() {
+    this.realeStateService.getPropertyById(this.currentPropertyId).subscribe((data) => {
+      this.property = data;
+      console.log('display data', data);
+      const userRating = this.property.ratings.find((rating:any) => rating.user.id == this.currentUserId);
+      if (userRating) {
+        this.rating = userRating.score; 
+        console.log("the score is",userRating.score);
+        
+      } else {
+        this.rating = 0; 
+      }
+    });
+}
+
+
 
   slidesConfig = {
     // Configuration options for the ngx-slick-carousel

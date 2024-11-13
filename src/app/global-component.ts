@@ -7,7 +7,7 @@ export const GlobalComponent = {
   API_URL : 'http://localhost:9056/',
 
   models: 'modelSTT/',
-
+  ETABLISSEMENT:'etablissement/',
   user: 'user/',
 RECLAMATION: 'reclamation/',
 POST:  'posts/',

@@ -78,7 +78,8 @@
                         <h6 class="dropdown-header">Welcome {{currentUser?.firstName}}!</h6>
                         <a class="dropdown-item" routerLink="/pages/faqs"><i class="mdi mdi-lifebuoy text-muted fs-lg align-middle me-1"></i> <span class="align-middle"> Help</span></a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" routerLink="/pages/profile-settings"><i class="mdi mdi-cog-outline text-muted fs-lg align-middle me-1"></i> <span class="align-middle"> Settings</span></a>
+                        <a *ngIf="role=='USER'" class="dropdown-item" routerLink="/User/pages/profile-settings"><i class="mdi mdi-cog-outline text-muted fs-lg align-middle me-1"></i> <span class="align-middle"> Settings</span></a>
+                        <a *ngIf="role=='OWNER'" class="dropdown-item" routerLink="/Owner/pages/profile-settings"><i class="mdi mdi-cog-outline text-muted fs-lg align-middle me-1"></i> <span class="align-middle"> Settings</span></a>
                         <a class="dropdown-item" href="javascript: void(0);" (click)="logout()"><i class="mdi mdi-logout text-muted fs-lg align-middle me-1"></i> <span class="align-middle" data-key="t-logout"> Logout</span></a>
                     </div>
                 </div>
