@@ -5,6 +5,7 @@ const routes: Routes = [
   {
     path: '', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule)
   },
+  { path: 'transport', loadChildren: () => import('./transport/transport.module').then(m => m.TransportModule) },
   {
     path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule)
   },
