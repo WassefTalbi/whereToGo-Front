@@ -140,6 +140,7 @@ onSubmit() {
   if (this.fileLogo) {
     registerData.append('photoProfile', this.fileLogo);
   }
+ console.log("display data ",firstName);
  
   this.authService.registerUser(registerData).subscribe(
     (response) => {
@@ -150,7 +151,8 @@ onSubmit() {
       console.log('User registered successfully:', response);
     },
     (error) => {
-      if (error.status === 400) {
+      console.log(error)
+    /*  if (error.status === 400) {
         let errorMessage = '';
         for (const field in error.error) {
           if (error.error.hasOwnProperty(field)) {
@@ -166,7 +168,7 @@ onSubmit() {
         }
       } else {
         this.addClientError = 'Une erreur inattendue est survenue, essayez encore';      }
-      this.toastr.error(this.addClientError || 'Erreur, veuillez réessayer', 'Erreur');
+      this.toastr.error(this.addClientError || 'Erreur, veuillez réessayer', 'Erreur');*/
     }
   );
 

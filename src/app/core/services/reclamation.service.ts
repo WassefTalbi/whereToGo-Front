@@ -13,7 +13,7 @@ export class ReclamationService {
   getReclamations(): Observable<any> {
     console.log( localStorage.getItem("token"));
     
-    return this.http.get<any>(`${API_URL+RECLAMATION}/all`);
+    return this.http.get<any>(`${API_URL+RECLAMATION}all`);
   }
   addReclamation(ForumRequet: any) {
     return this.http.post(`${API_URL+RECLAMATION}create`,ForumRequet )
@@ -23,7 +23,7 @@ export class ReclamationService {
   }
   deleteReclamation(ID: any): Observable<any>  {
     
-    return this.http.delete(`${API_URL+RECLAMATION}Id`, )
+    return this.http.delete(`${API_URL+RECLAMATION}ID`, )
   }
  
   myReclamation():Observable<any>  {
