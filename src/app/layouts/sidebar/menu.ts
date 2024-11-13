@@ -4,8 +4,10 @@ export const MENU: MenuItem[] = [
 
   {
     id: 1,
+
     label: 'MENUITEMS.APPS.LIST.REALESTATE',
     icon: 'ph-buildings',
+
     subItems: [
         {
             id: 2,

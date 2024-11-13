@@ -88,7 +88,9 @@ export class AuthenticationService {
     }
  
   registerUser(client:any) {
+
     return this.http.post<any>(AUTH_API + 'signup',client );
+
   }
 
 

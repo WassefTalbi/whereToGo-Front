@@ -73,6 +73,7 @@ currentUser:any;
     this.element = document.documentElement;
     this.getImage()
     console.log(this.currentUser);
+
     if(this.authService.isAdmin()){
       this.role="ADMIN"
     }else if(this.authService.isUser()){
@@ -80,14 +81,17 @@ currentUser:any;
     }else{
       this.role="OWNER"
     }
+
     console.log(this.role);
      this.userService.getCurrentUser().subscribe(
         user => {
           this.currentUser = user;
           console.log(this.currentUser);
           if (this.currentUser===null) {
+
             this.authService.logout();
            location.reload();
+
           }
         },
         error => {
