@@ -57,6 +57,7 @@ import { AdminGuard } from './core/guards/admin.guard';
 import { userGuard } from './core/guards/user.guard';
 import { LayoutUserModule } from './layout-user/layout-user.module';
 import { authInterceptorProviders } from './core/helpers/auth.interceptor';
+import { EtablissementRoutingModule } from './pages/Etablissement/etablissement-routing.module';
 
 //import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 
@@ -133,7 +134,7 @@ if (environment.defaultauth === 'firebase') {
     ReactiveFormsModule,
     CommonModule,
     AngularFireAuthModule,
-    EtablissementRoutingModule
+    EtablissementRoutingModule,
   ],
   providers: [
     AdminGuard,
