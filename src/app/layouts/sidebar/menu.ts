@@ -42,6 +42,13 @@ export const MENU: MenuItem[] = [
             icon: 'ph-buildings',
             
         },
+        {
+            id: 4,
+            label: 'TRANSPORT',
+            link: '/transport',
+            icon: 'ph-buildings',
+            
+        },
     
   
 
