@@ -9,14 +9,15 @@ const routes: Routes = [
     path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule)
   },
   {
-    path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule)
+    path: 'Etablissement', loadChildren: () => import('./Etablissement/etablissement.module').then(m => m.EtablissementModule)
   },
   {
     path: 'learning', loadChildren: () => import('./learning/learning.module').then(m => m.LearningModule)
   },
-  {
-    path: 'ui', loadChildren: () => import('./ui/ui.module').then(m => m.UiModule)
-  },
+  
+  { path: 'Evenement',loadChildren: () => import('./evenement/evenement.module').then(m => m.EvenementModule) },
+
+
   {
     path: 'invoices', loadChildren: () => import('./invoices/invoices.module').then(m => m.InvoicesModule)
   },
@@ -53,6 +54,7 @@ const routes: Routes = [
   {
     path: 'model', loadChildren: () => import('./model/model.module').then(m => m.ModelModule)
   },
+
   {
     path: 'reclamation', loadChildren: () => import('./reclamation/reclamation.module').then(m => m.ReclamationModule)
 

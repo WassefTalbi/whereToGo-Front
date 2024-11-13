@@ -23,11 +23,9 @@ export class TwoColumnComponent {
     window.addEventListener('resize', () => {
       if (document.documentElement.getAttribute('data-layout') == "twocolumn") {
         if (document.documentElement.clientWidth <= 767) {
-          this.eventService.broadcast('changeLayout', 'vertical');
           document.documentElement.setAttribute('data-layout', 'vertical');
           document.body.classList.add('twocolumn-panel');
         } else {
-          this.eventService.broadcast('changeLayout', 'twocolumn');
           document.documentElement.setAttribute('data-layout', 'twocolumn');
           document.body.classList.remove('twocolumn-panel');
         }
@@ -35,10 +33,8 @@ export class TwoColumnComponent {
       else {
         if (document.body.classList.contains('twocolumn-panel')) {
           if (document.documentElement.clientWidth <= 767) {
-            this.eventService.broadcast('changeLayout', 'vertical');
             document.documentElement.setAttribute('data-layout', 'vertical');
           } else {
-            this.eventService.broadcast('changeLayout', 'twocolumn');
             document.documentElement.setAttribute('data-layout', 'twocolumn');
             document.body.classList.remove('twocolumn-panel')
           }

@@ -87,8 +87,12 @@ export class AuthenticationService {
         );
     }
  
-  registerUser(client:any) {    
-    return this.http.post<any>('http://localhost:9056/auth/signup',client );
+
+  registerUser(client:any) {
+
+    return this.http.post<any>(AUTH_API + 'signup',client );
+
+
   }
 
 

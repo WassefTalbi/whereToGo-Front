@@ -130,7 +130,8 @@ if (environment.defaultauth === 'firebase') {
     ToastrModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    EtablissementRoutingModule
   ],
   providers: [
     AdminGuard,userGuard,authInterceptorProviders,
