@@ -9,7 +9,7 @@ const routes: Routes = [
   
 
     { path: 'add', component: EventAddComponent },
-    { path: 'update', component: EventUpdateComponent },
+    { path: 'update/:id', component: EventUpdateComponent },
     { path: 'list', component: EventListComponent },
 
 

@@ -6,8 +6,6 @@ import { Event } from '../event-list/event-list.component';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-event-update',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './event-update.component.html',
   styleUrls: ['./event-update.component.scss']
 })
@@ -49,5 +47,6 @@ export class EventUpdateComponent {
       }
     );
   }
+  updateEvent(){}
 }
 

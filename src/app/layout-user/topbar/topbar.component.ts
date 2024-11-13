@@ -80,8 +80,8 @@ currentUser:any;
           this.currentUser = user;
           console.log(this.currentUser);
           if (this.currentUser===null) {
-            this.authService.logout();
-            location.reload();
+           // this.authService.logout();
+           // location.reload();
           }
         },
         error => {

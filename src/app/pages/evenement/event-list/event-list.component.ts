@@ -1,79 +1,115 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventService } from 'src/app/core/services/event.service';
 export class Event{
-  constructor(
-  public idEvent:number,
-  public address:string,
-  public description:string,
-  public eventDate:Date,
-  public name:string,
-  public nbPlace:number,
-  public image:string,
-  public price:number,
-  public hour: string,
-  public  rating:number
-
-  ){}
-}
+    constructor(
+    public idEvent:number,
+    public address:string,
+    public description:string,
+    public eventDate:Date,
+    public name:string,
+    public nbPlace:number,
+    public image:string,
+    public price:number,
+    public hour: string,
+    public  rating:number
+  
+    ){}
+  }
 @Component({
   selector: 'app-event-list',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './event-list.component.html',
   styleUrls: ['./event-list.component.scss']
 })
 
 
 export class EventListComponent {
-  events: string[] = []; // Tableau pour stocker les événements
-    currentPage: number = 1; // Page actuelle
-    itemsPerPage: number = 5; // Nombre d'éléments par page
-
-    constructor() {
-        // Initialisation des événements
-        this.events = [
-            'Événement 1',
-            'Événement 2',
-            'Événement 3',
-            'Événement 4',
-            'Événement 5',
-            'Événement 6',
-            'Événement 7',
-            'Événement 8',
-            'Événement 9',
-            'Événement 10'
-        ];
+    event!: Event
+    eventList: Event[] = [];
+    currentPage: number = 1;
+    totalEvents: number = 0;
+    pageSize: number = 3;
+    totalPages: number = 0;
+    pages: number[] = [];
+    constructor(public _router: Router, public eventservice: EventService) {
+       
     }
 
-    addEvent(): void {
-        const newEvent = prompt('Entrez le nom de l\'événement :');
-        if (newEvent) {
-            this.events.push(newEvent);
-            console.log('Nouvel événement ajouté :', newEvent);
+    ngOnInit(): void {
+        this.getEvents();
+      }
+    
+      getEvents(): void {
+        this.eventservice.getEventsPaged(this.currentPage, this.pageSize)
+          .subscribe(response => {
+            this.eventList = response.content; // Utilisez response.content pour obtenir la liste des événements
+            this.totalEvents = response.totalElements;
+            this.totalPages = response.totalPages;
+            this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+          });
+      }
+      onPageChange(page: number): void {
+        this.currentPage = page;
+        this.getEvents();
+      }
+      generateStarRatingArray(rating: number): string[] {
+        const starArray: string[] = [];
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 !== 0;
+        for (let i = 0; i < fullStars; i++) {
+          starArray.push('fas fa-star');
         }
-    }
-
-    get paginatedEvents(): string[] {
-        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-        return this.events.slice(startIndex, startIndex + this.itemsPerPage);
-    }
-
-    nextPage(): void {
-        if (this.currentPage * this.itemsPerPage < this.events.length) {
-            this.currentPage++;
+        if (hasHalfStar) {
+          starArray.push('fas fa-star-half-alt');
         }
-    }
-
-    previousPage(): void {
+        const remainingStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+        for (let i = 0; i < remainingStars; i++) {
+          starArray.push('far fa-star');
+        }
+        return starArray;
+      }
+      deleteEvent(id: number): void {
+        console.log(`delete Event ${id}`);
+        this.eventservice.deleteEvent(id).subscribe(
+          response => {
+            console.log(response);
+            // Rafraîchir la liste des événements après la suppression
+            this.getEvents();
+          },
+          error => {
+            console.error('Erreur lors de la suppression du fournisseur', error);
+          }
+        );
+        window.location.reload();
+    
+      }
+    
+      prevPage(): void {
         if (this.currentPage > 1) {
-            this.currentPage--;
+          this.currentPage--;
+          this.getEvents();
         }
-    }
-
-    resetPagination(): void {
-        this.currentPage = 1;
-    }
- 
+      }
+    
+      nextPage(): void {
+        if (this.currentPage < this.totalPages) {
+          this.currentPage++;
+          this.getEvents();
+        }
+      }
+    
+      goToPage(page: number): void {
+        if (page >= 1 && page <= this.totalPages) {
+          this.currentPage = page;
+          this.getEvents();
+        }
+      }
+    
+      addEvent(): void {
+        this._router.navigate(['Evenement/add'])
+      }
+    
+      updatevent(id: number): void {
+        this._router.navigate(['Evenement/update', id])
+      }
 }

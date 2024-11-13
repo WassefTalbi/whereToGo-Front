@@ -10,7 +10,7 @@ import { EventUpdateComponent } from './event-update/event-update.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [ EventAddComponent
+  declarations: [ EventAddComponent,EventListComponent,EventUpdateComponent
   ],
   imports: [
     CommonModule,

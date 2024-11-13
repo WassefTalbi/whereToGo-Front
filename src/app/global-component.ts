@@ -2,10 +2,10 @@ export const GlobalComponent = {
 
   headerToken: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
 
-  AUTH_API : 'http://localhost:1919/auth/',
+  AUTH_API : 'http://localhost:9056/auth/',
 
-  API_URL : 'http://localhost:1919/',
-
+  API_URL : 'http://localhost:9056/',
+  EVENEMENT:'evenement/',
   models: 'modelSTT/',
 
   user: 'user/',
