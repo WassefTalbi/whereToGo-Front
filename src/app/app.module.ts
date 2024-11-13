@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -52,6 +53,7 @@ import {AdminGuard} from "./core/guards/admin.guard";
 import {userGuard} from "./core/guards/user.guard";
 import {LayoutUserModule} from "./layout-user/layout-user.module";
 import {authInterceptorProviders} from "./core/helpers/auth.interceptor";
+
 //import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 
 /*
@@ -128,7 +130,8 @@ if (environment.defaultauth === 'firebase') {
     ToastrModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    EtablissementRoutingModule
   ],
   providers: [
     AdminGuard,userGuard,authInterceptorProviders,

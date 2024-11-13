@@ -9,7 +9,7 @@ const routes: Routes = [
     path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule)
   },
   {
-    path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule)
+    path: 'Etablissement', loadChildren: () => import('./Etablissement/etablissement.module').then(m => m.EtablissementModule)
   },
   {
     path: 'learning', loadChildren: () => import('./learning/learning.module').then(m => m.LearningModule)
@@ -54,7 +54,23 @@ const routes: Routes = [
   {
     path: 'model', loadChildren: () => import('./model/model.module').then(m => m.ModelModule)
   },
-  
+
+  {
+    path: 'reclamation', loadChildren: () => import('./reclamation/reclamation.module').then(m => m.ReclamationModule)
+
+  },
+   {
+
+    path: 'actualite', loadChildren: () => import('./actualite/actualite.module').then(m => m.ActualiteModule)
+
+
+  },
+  {
+    path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+
+
+  }
+
 ];
 
 @NgModule({

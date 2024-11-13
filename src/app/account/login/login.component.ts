@@ -65,7 +65,9 @@ export class LoginComponent implements OnInit{
     
     this.authService.login(this.f['email'].value, this.f['password'].value).subscribe(
       (response) => {
-        console.log("msg",response.access_token);
+
+        console.log("msg",response);
+
         
         
          

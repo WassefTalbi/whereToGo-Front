@@ -1,0 +1,137 @@
+<div class="card">
+  <div class="card-body">
+    <div class="col-lg-auto">
+      <button class="btn btn-subtle-danger d-none" id="remove-actions" (click)="deleteRecordModal?.show()">
+        <i class="ri-delete-bin-2-line"></i>
+      </button>
+      <button type="button" class="btn btn-primary add-btn ms-1" (click)="showModal?.show()">
+        <i class="bi bi-plus-circle align-baseline me-1"></i> Ajouter Raclamation
+      </button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-centered align-middle table-nowrap mb-0">
+        <thead class="table-active">
+          <tr>
+            <th>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" (change)="checkUncheckAll($event)" [(ngModel)]="masterSelected" id="checkAll">
+                <label class="form-check-label" for="checkAll"></label>
+              </div>
+            </th>
+            <th class="sort cursor-pointer" (click)="onSort('titre')">Titre</th>
+            <th class="sort cursor-pointer" (click)="onSort('description')">Description</th>
+            <th class="sort cursor-pointer" (click)="onSort('createDate')">Date de Création</th>
+            <th class="sort cursor-pointer" (click)="onSort('updateDate')">Date de Mise à Jour</th>
+            <th class="sort cursor-pointer" (click)="onSort('status')">Statut</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="list form-check-all">
+          <tr *ngFor="let data of Reclamation">
+            <td>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="data.states" (change)="onCheckboxChange()">
+              </div>
+            </td>
+            <td class="titre">{{data.titre}}</td>
+            <td class="description">{{data.description}}</td>
+            <td class="create_date">{{data.createDate}}</td>
+            <td class="update_date">{{data.updateDate}}</td>
+            <td class="status">
+              <span class="badge" [ngClass]="{
+                    'bg-success-subtle text-success': data.status === 'Résolu', 
+                    'bg-danger-subtle text-danger': data.status === 'Non Résolu' || data.status === 'Remboursé', 
+                    'bg-warning-subtle text-warning': data.status === 'En Cours'
+                  }">
+                {{data.status}}
+              </span>
+            </td>
+            <td>
+              <div dropdown class="dropdown">
+                <button dropdownToggle class="btn btn-subtle-secondary btn-sm btn-icon">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul *bsDropdownMenu class="dropdown-menu dropdown-menu-end">
+
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!--end table-responsive-->
+    
+   
+
+    <!-- No Result Found -->
+    <div class="noresult" *ngIf="!isLoading && Reclamation.length === 0">
+      <div class="text-center py-4">
+        <div class="avatar-md mx-auto mb-4">
+          <div class="avatar-title bg-light text-primary rounded-circle fs-4xl">
+            <i class="bi bi-search"></i>
+          </div>
+        </div>
+        <h5 class="mt-2">Sorry! No Result Found</h5>
+        <p class="text-muted mb-0">We did not find any reclamations for your search.</p>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="row mt-3 align-items-center" id="pagination-element">
+      <div class="col-sm">
+        <div class="text-muted">
+          Showing <span class="fw-semibold">{{Reclamation.length}}</span> of <span class="fw-semibold">{{MyReclamationslist?.length}}</span> Results
+        </div>
+      </div>
+      <div class="col-sm-auto mt-3 mt-sm-0">
+        <pagination class="pagination-wrap hstack gap-2" [totalItems]="MyReclamationslist?.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #showModal="bs-modal" class="modal fade" id="showModal">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header px-4 pt-4">
+              <h5 class="modal-title" id="exampleModalLabel">Ajouter une Réclamation</h5>
+              <button type="button" class="btn-close" (click)="showModal.hide()"></button>
+          </div>
+
+          <form (ngSubmit)="saveReclamation()" [formGroup]="reclamationForm" class="tablelist-form" novalidate autocomplete="off">
+              <div class="modal-body p-4">
+                  <div id="alert-error-msg" class="d-none alert alert-danger py-2"></div>
+
+                  <div class="mb-3">
+                      <label for="reclamation-titre-input" class="form-label">Titre de la Réclamation</label>
+                      <input type="text" id="reclamation-titre-input" formControlName="titre" class="form-control" placeholder="Entrez le titre" required>
+                      
+                      <div *ngIf="titre?.invalid && (titre?.dirty || titre?.touched)" class="error-message">
+                        <small *ngIf="titre?.errors?.['required']">Titre is required and cannot be blank.</small>
+                        <small *ngIf="titre?.errors?.['minlength']">Titre must be at least 3 characters long.</small>
+                        <small *ngIf="titre?.errors?.['maxlength']">Titre cannot be more than 25 characters long.</small>
+                      </div>
+                  </div>
+
+                  <div class="mb-3">
+                      <label for="reclamation-description-input" class="form-label">Description</label>
+                      <textarea id="reclamation-description-input" formControlName="description" class="form-control" rows="3" placeholder="Entrez la description" required></textarea>
+                      <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="error-message">
+                        <small *ngIf="description?.errors?.['required']">Description is required and cannot be blank.</small>
+                        <small *ngIf="description?.errors?.['minlength']">Description must be at least 12 characters long.</small>
+                        <small *ngIf="description?.errors?.['maxlength']">Description cannot be more than 255 characters long.</small>
+                      </div>
+                  </div>
+
+              </div>
+              <div class="modal-footer">
+                  <div class="hstack gap-2 justify-content-end">
+                      <button type="button" class="btn btn-ghost-danger" (click)="showModal.hide()">
+                          <i class="bi bi-x-lg align-baseline me-1"></i> Fermer
+                      </button>
+                      <button type="submit" class="btn btn-primary" id="add-btn">Ajouter Réclamation</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>

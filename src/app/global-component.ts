@@ -4,11 +4,15 @@ export const GlobalComponent = {
 
   AUTH_API : 'http://localhost:9056/auth/',
 
+
   API_URL : 'http://localhost:9056/',
   EVENEMENT:'evenement/',
   models: 'modelSTT/',
 
   user: 'user/',
+RECLAMATION: 'reclamation/',
+POST:  'posts/',
+COMMENT:'comments/'
 
 
 

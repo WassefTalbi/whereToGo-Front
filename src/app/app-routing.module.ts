@@ -8,6 +8,8 @@ import { AuthGuard } from './core/guards/auth.guard';
 import {AdminGuard} from "./core/guards/admin.guard";
 import {userGuard} from "./core/guards/user.guard";
 import {LayoutComponentUser} from "./layout-user/layout.component";
+import { ownerGuard } from './core/guards/owner.guard';
+
 
 const routes: Routes = [
   { path: '', component: LayoutComponent, loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule) },
@@ -16,10 +18,13 @@ const routes: Routes = [
 
   { path: 'auth', component: AuthlayoutComponent, loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   { path: 'pages',component: AuthlayoutComponent, loadChildren: () => import('./extraspages/extraspages.module').then(m => m.ExtraspagesModule)/*,canActivate: [userGuard]*/},
+
+
+  
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' }) ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
