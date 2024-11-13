@@ -96,7 +96,12 @@ export class ProfileSettingsComponent {
     this.userService.getCurrentUser().subscribe(
       user => {
         this.currentUser = user;
-        this.userService.getImage(this.currentUser.photoProfile).subscribe(data => {
+        console.log("display user");
+        
+        console.log(this.currentUser);
+        console.log("photo"+this.currentUser.photoprofile);
+        
+        this.userService.getImage(this.currentUser.photoprofile).subscribe(data => {
           this.createImageFromBlob(data);
         }, error => {
           console.log(error);
@@ -111,8 +116,15 @@ export class ProfileSettingsComponent {
     this.currentTab = tab;
   }
  editProfile() {
-  const email = this.authService.currentUser()['sub'];
-  this.role=this.authService.currentUser()['scope']
+  const email = this.authService.currentUser()['email'];
+  if(this.authService.isAdmin()){
+    this.role="ADMIN"
+  }else if(this.authService.isUser()){
+    this.role="USER"
+  }else{
+    this.role="OWNER"
+  }
+
     this.userService.getUserByEmail(email).subscribe((user: any) => {
       console.log("user in profile -settings",user)
      this.currentUser=user;
@@ -155,7 +167,9 @@ export class ProfileSettingsComponent {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length > 0) {
       const file = target.files[0];
-      this.userService.uploadProfilePicture(file, this.authService.currentUser()['sub']).subscribe(
+      console.log(this.authService.currentUser()['email']);
+      
+      this.userService.uploadProfilePicture(file, this.authService.currentUser()['email']).subscribe(
         (event: HttpEvent<any>) => {
           switch (event.type) {
             case HttpEventType.Response:

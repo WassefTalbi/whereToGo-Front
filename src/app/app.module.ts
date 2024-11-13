@@ -133,6 +133,7 @@ if (environment.defaultauth === 'firebase') {
     ReactiveFormsModule,
     CommonModule,
     AngularFireAuthModule,
+    EtablissementRoutingModule
   ],
   providers: [
     AdminGuard,

@@ -17,7 +17,7 @@ import { ClientService } from 'src/app/core/services/client.service';
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
-  styleUrl: './client.component.scss',
+  styleUrl: './client.component.scss', 
   providers: [DecimalPipe]
 })
 export class ClientComponent {
@@ -46,8 +46,13 @@ export class ClientComponent {
   }
 
   ngOnInit(): void {
-    this.role=this.authService.currentUser()['scope']
-    console.log('role in the properties grid ',this.role);
+    if(this.authService.isAdmin()){
+      this.role="ADMIN"
+    }else if(this.authService.isUser()){
+      this.role="USER"
+    }else{
+      this.role="OWNER"
+    }    console.log('role in the properties grid ',this.role);
     /**
      * BreadCrumb
      */

@@ -1,0 +1,49 @@
+/* Style pour le formulaire créatif */
+.creative-card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .creative-card .card-header {
+    border: none;
+  }
+  
+  .creative-card .form-label {
+    font-weight: bold;
+  }
+  
+  .creative-card .form-control {
+    border-radius: 10px;
+  }
+  
+  .creative-card .btn-primary {
+    border-radius: 20px;
+  }
+  
+  .creative-card input[type="file"] {
+    display: none;
+  }
+  
+  .creative-card input[type="file"] + label {
+    border: 2px dashed #3498db;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .creative-card input[type="file"] + label:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .creative-card input[type="file"] + label i {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .creative-card input[type="file"] + label span {
+    display: block;
+    font-weight: bold;
+  }
+  

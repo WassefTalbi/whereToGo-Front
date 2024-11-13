@@ -1,7 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+// Date Format
+import { DatePipe } from '@angular/common';
 // Page Route
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -75,6 +76,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     FlatpickrModule.forRoot()
   ],
   providers: [
+    DatePipe,
     {
       provide: DROPZONE_CONFIG,
       useValue: DEFAULT_DROPZONE_CONFIG

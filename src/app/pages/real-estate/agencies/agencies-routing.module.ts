@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 // Component
 import { ListComponent } from './list/list.component';
 import { OverviewComponent } from './overview/overview.component';
+import { OwnerComponent } from './owner/owner.component';
 
 const routes: Routes = [
   {
@@ -11,8 +12,12 @@ const routes: Routes = [
     component: ListComponent
   },
   {
-    path: 'overview',
+    path: 'overview/:id',
     component: OverviewComponent
+  },
+  {
+    path: 'owner',
+    component: OwnerComponent
   },
 ];
 

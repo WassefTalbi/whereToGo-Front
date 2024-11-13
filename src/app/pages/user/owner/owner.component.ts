@@ -185,7 +185,7 @@ export class OwnerComponent {
     this.ownerService.getRestaurantById(id).subscribe((agency: any) => {
       this.editAgencyId = id;
       this.agencyFormEdit.patchValue({
-        name: agency.name,
+        name: agency.firstName,
         description: agency.description,
         sinceYear: agency.sinceYear,     
         email: agency.email,
@@ -194,7 +194,7 @@ export class OwnerComponent {
 
       });
       this.fileLogo = null; 
-      this.logoUrl =`http://localhost:1919/user/image/${agency.photoProfile}`;
+      this.logoUrl =`http://localhost:9056/user/image/${agency.photoprofile}`;
       this.editAgencyModal?.show();
     });
 }
